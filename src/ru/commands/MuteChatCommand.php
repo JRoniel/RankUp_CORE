@@ -20,7 +20,7 @@ class MuteChatCommand extends PluginCommand
     {
 		parent::__construct('mute', $plugin);
 		$this->plugin=$plugin;
-		$this->setDescription('Silencie o chat global do servidor.');
+		$this->setDescription('Silencie o chat global para todos os jogadores.');
 		$this->setPermission('ru.mutechat');
 		$this->setAliases(['muteall']);
 	}
@@ -29,18 +29,18 @@ class MuteChatCommand extends PluginCommand
     {
 		if(!$player->hasPermission('ru.mutechat'))
         {
-			$player->sendMessage('§cVocê não pode executar esse comando.');
+			$player->sendMessage(Utils::NO_PERM);
 			return;
 		}
 		if(Utils::getGlobalMute()==false)
         {
             Utils::setGlobalMute(true);
-			$player->sendMessage('§cChat global foi bloquado aos jogadores...');
-            $this->plugin->getServer()->broadcastMessage('§c'.$player->getName().' silênciou o chat global!');
+			$player->sendMessage('§cChat global foi bloqueado aos jogadores...');
+            $this->plugin->getServer()->broadcastMessage(Utils::CHAT_OFF);
         } else {
             Utils::setGlobalMute(false);
 			$player->sendMessage('§aChat global foi liberado aos jogadores...');
-            $this->plugin->getServer()->broadcastMessage('§c'.$player->getName().' liberou o chat global!');
+            $this->plugin->getServer()->broadcastMessage(Utils::CHAT_ON);
 		} 
 	}
 }

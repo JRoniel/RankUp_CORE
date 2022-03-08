@@ -41,7 +41,6 @@ class MainClass extends PluginBase {
 		self::$instance = $this; 
 		$this->disableCommands();
 		$this->setCommands();
-		//@mkdir($this->getDataFolder().'playerData/');
 		$this->getServer()->getPluginManager()->registerEvents(new PlayerEvents($this), $this);
 		foreach (array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $worldName) {
             $this->getWorldManager()->loadWorld($worldName);
@@ -79,5 +78,6 @@ class MainClass extends PluginBase {
 		$map->unregister($map->getCommand("gamemode"));
 		$map->unregister($map->getCommand("say"));
 		$map->unregister($map->getCommand("version"));
+		$map->unregister($map->getCommand("help"));
 	}
 }

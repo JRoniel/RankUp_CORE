@@ -2,13 +2,16 @@ Name: RankUp_Class      <br />
 Author: John R. (@zBanXD_) <br />
 
 Recursos inclusos: <br />
-    - Chat tratado contra UPPERCASE e palavrões.
-    - Mensagem de eventos vanilla removidos.
-    - Comandos vanilla removidos.
-    - Comandos inclusos (mute)
+    - Chat tratado contra UPPERCASE e palavrões.    <br />
+    - Mensagem de eventos vanilla removidos.    <br />
+    - Comandos vanilla removidos.   <br />
+    - Comandos inclusos (mute)  <br />
 
 Future Resources: <br />
+    - Help Command <br />
     - Broadcast Messages<br />
+    - Player Capes <br />
+    - Lobby Menu Item <br />
     - Freeze Hack-Player (/freeze steve)<br />
 
 Suggestion Resources:       <br />
