@@ -6,7 +6,11 @@ namespace ru;
 
 use ru\{
 	listeners\PlayerEvents,
-	commands\MuteChatCommand
+
+	tasks\BroadcastTask,
+
+	commands\muteChatCommand,
+	commands\helpCommand
 };
 use PocketMine\{
 	world\WorldManager,
@@ -19,10 +23,13 @@ use function scandir;
 class MainClass extends PluginBase {
 
     public $globalMute = false;
+	public $flyAllowed = false;
 
 	private WorldManager $worldmanager;
+
     private static $instance;
 
+	const PREFIX = '[RU]';
 	const VERSION = '0.2-alpha';
     const LOBBY = 'lobby';
 	const RPG_WORLD = 'rpg';
@@ -42,6 +49,7 @@ class MainClass extends PluginBase {
 		$this->disableCommands();
 		$this->setCommands();
 		$this->getServer()->getPluginManager()->registerEvents(new PlayerEvents($this), $this);
+		$this->getScheduler()->scheduleDelayedRepeatingTask(new BroadcastTask($this), 200, 11000);
 		foreach (array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $worldName) {
             $this->getWorldManager()->loadWorld($worldName);
         }
@@ -58,7 +66,8 @@ class MainClass extends PluginBase {
 	public function setCommands()
 	{
 		$map=$this->getServer()->getCommandMap();
-		$map->register("mute", new MuteChatCommand($this));
+		$map->register("mute", new muteChatCommand($this));
+		$map->register("help", new helpCommand($this));
 	}
 
     public function disableCommands()

@@ -58,6 +58,7 @@ class PlayerEvents implements Listener
         $player=$event->getPlayer();
         $event->setJoinMessage(\ru\Utils::JOIN_MESSAGE);
         $player->sendMessage(ru\Utils::WELCOME_PLAYER);
+        Utils::teleport($player, MainClass::LOBBY);
     }
 
     public function onQuit(PlayerQuitEvent $event): void 

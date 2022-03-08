@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ru\commands;
 
 use pocketmine\{
@@ -11,7 +13,7 @@ use pocketmine\{
 use ru\Utils;
 use ru\MainClass;
 
-class MuteChatCommand extends PluginCommand
+class muteChatCommand extends PluginCommand
 {
 	
 	private $plugin;
