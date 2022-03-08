@@ -1,0 +1,10 @@
+name: RankUp_Class
+main: ru\MainClass
+version: 0.2-alpha
+api: 4.0.0
+author: John Roniel (@zBanXD)
+
+permissions:
+  ru.mutechat:
+    description: 'MuteChat Global'
+    default: op
