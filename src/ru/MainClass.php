@@ -29,12 +29,16 @@ class MainClass extends PluginBase {
 
 	private static $instance;
 
-	const PREFIX = '[RU]';
+	const PREFIX = '[RU] >>';
 	const VERSION = '0.2-alpha';
 	const LOBBY = 'lobby';
 	const RPG_WORLD = 'rpg';
+	const IP = '';
+	const PORT = '';
+	const DISCORD = '';
 
-	public function getWorldManager() : WorldManager{
+	public function getWorldManager() : WorldManager
+	{
 		return $this->worldManager;
 	}
 
@@ -50,15 +54,16 @@ class MainClass extends PluginBase {
 		$this->setCommands();
 		$this->getServer()->getPluginManager()->registerEvents(new PlayerEvents($this), $this);
 		$this->getScheduler()->scheduleDelayedRepeatingTask(new BroadcastTask($this), 200, 11000);
-		foreach (array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $worldName) {
-		$this->getWorldManager()->loadWorld($worldName);
-	}
+		foreach (array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $worldName)
+		{
+			$this->getWorldManager()->loadWorld($worldName);
+		}
 		foreach($this->getServer()->getLevels() as $levels){
 			foreach($levels->getEntities() as $entity){
 				$entity->close();
 			}
 		}
-		$this->getLogger()->info('RU >> Núcleo funcional e assicróno, RankUp_Class '.self::VERSION);
+		$this->getLogger()->info(self::PREFIX.' Núcleo funcional e assicróno, RankUp_Class '.self::VERSION);
 	}
 
 

@@ -6,6 +6,7 @@ namespace ru\listeners;
 
 use PocketMine\{
     player\Player,
+    entity\Skin,
     event\Listener,
     event\player\PlayerChatEvent,
     event\player\PlayerJoinEvent,
@@ -17,6 +18,7 @@ use PocketMine\{
 
 use ru\MainClass;
 use ru\Utils;
+
 use function json_decode;
 
 class PlayerEvents implements Listener 
@@ -56,14 +58,20 @@ class PlayerEvents implements Listener
     public function onJoin(PlayerJoinEvent $event): void 
     {
         $player=$event->getPlayer();
-        $event->setJoinMessage(\ru\Utils::JOIN_MESSAGE);
+        $event->setJoinMessage('');
         $player->sendMessage(ru\Utils::WELCOME_PLAYER);
         Utils::teleport($player, MainClass::LOBBY);
+        
+        #Remove cape player
+        $oldSkin = $player->getSkin();
+        $newSkin = new Skin($oldSkin->getSkinId(), $oldSkin->getSkinData(), '', $oldSkin->getGeometryName(), $oldSkin->getGeometryData());
+        $player->setSkin($newSkin);
+        $player->sendSkin();
     }
 
     public function onQuit(PlayerQuitEvent $event): void 
     {
-        $event->setQuitMessage(\ru\Utils::QUIT_MESSAGE);
+        $event->setQuitMessage('');
     }
 
     public function onDeath(PlayerDeathEvent $event): void 
@@ -71,12 +79,12 @@ class PlayerEvents implements Listener
         $event->setDeathMessage('');
     }
 
-    public function onExhaust(PlayerExhaustEvent $event)
+    public function onExhaust(PlayerExhaustEvent $event): void
     {
 		$event->setCancelled();
 	}
 
-    public function onEntityDeath(EntityDeathEvent $event)
+    public function onEntityDeath(EntityDeathEvent $event): void
     {
 		$entity=$event->getEntity();
 		if(!$entity instanceof Player){
